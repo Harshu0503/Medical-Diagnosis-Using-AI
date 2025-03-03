@@ -1,5 +1,7 @@
 import streamlit as st
 import pickle
+import requests
+import os
 
 # Page configuration
 st.set_page_config(page_title="AI Medical Diagnosis", page_icon="⚕️")
@@ -95,15 +97,42 @@ if st.session_state["logged_in"]:
     st.write(f"You selected: **{selected_disease}**")
     st.write("Please enter the required details for the prediction.")
 
-    # Load the models
-    models = {
-        'diabetes': pickle.load(open(r'diabetes_model.sav', 'rb')),
-        'heart_disease': pickle.load(open(r'heart_disease_model.sav', 'rb')),
-        'parkinsons': pickle.load(open(r'parkinsons_model.sav', 'rb')),
-        'lung_cancer': pickle.load(open(r'lungs_disease_model.sav', 'rb')),
-        'thyroid': pickle.load(open(r'Thyroid_model.sav', 'rb'))
-    }
+# Function to download a file from GitHub
+def download_file_from_github(url, local_path):
+    response = requests.get(url)
+    with open(local_path, 'wb') as file:
+        file.write(response.content)
 
+# URLs of the model files on GitHub
+model_urls = {
+    'diabetes': 'https://raw.githubusercontent.com/Harshu0503/Medical-Diagnosis-Using-AI/main/diabetes_model.sav',
+    'heart_disease': 'https://raw.githubusercontent.com/Harshu0503/Medical-Diagnosis-Using-AI/main/heart_disease_model.sav',
+    'parkinsons': 'https://raw.githubusercontent.com/Harshu0503/Medical-Diagnosis-Using-AI/main/parkinsons_model.sav',
+    'lung_cancer': 'https://raw.githubusercontent.com/Harshu0503/Medical-Diagnosis-Using-AI/main/lungs_disease_model.sav',
+    'thyroid': 'https://raw.githubusercontent.com/Harshu0503/Medical-Diagnosis-Using-AI/main/Thyroid_model.sav'
+}
+
+# Local paths to save the downloaded model files
+local_paths = {
+    'diabetes': 'diabetes_model.sav',
+    'heart_disease': 'heart_disease_model.sav',
+    'parkinsons': 'parkinsons_model.sav',
+    'lung_cancer': 'lungs_disease_model.sav',
+    'thyroid': 'Thyroid_model.sav'
+}
+
+# Download the model files
+for key in model_urls:
+    download_file_from_github(model_urls[key], local_paths[key])
+
+   # Load the models
+models = {
+    'diabetes': pickle.load(open(local_paths['diabetes'], 'rb')),
+    'heart_disease': pickle.load(open(local_paths['heart_disease'], 'rb')),
+    'parkinsons': pickle.load(open(local_paths['parkinsons'], 'rb')),
+    'lung_cancer': pickle.load(open(local_paths['lung_cancer'], 'rb')),
+    'thyroid': pickle.load(open(local_paths['thyroid'], 'rb'))
+}
     # Function for input fields
     def display_input(label, tooltip, key, type="text"):
         if type == "text":
