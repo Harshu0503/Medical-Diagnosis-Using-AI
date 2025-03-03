@@ -97,11 +97,11 @@ if st.session_state["logged_in"]:
 
     # Load the models
     models = {
-        'diabetes': pickle.load(open(r'H:\Harshu\Projects\Medical diagnosis using AI\Models\diabetes_model.sav', 'rb')),
-        'heart_disease': pickle.load(open(r'H:\Harshu\Projects\Medical diagnosis using AI\Models\heart_disease_model.sav', 'rb')),
-        'parkinsons': pickle.load(open(r'H:\Harshu\Projects\Medical diagnosis using AI\Models\parkinsons_model.sav', 'rb')),
-        'lung_cancer': pickle.load(open(r'H:\Harshu\Projects\Medical diagnosis using AI\Models\lungs_disease_model.sav', 'rb')),
-        'thyroid': pickle.load(open(r'H:\Harshu\Projects\Medical diagnosis using AI\Models\Thyroid_model.sav', 'rb'))
+        'diabetes': pickle.load(open(r'diabetes_model.sav', 'rb')),
+        'heart_disease': pickle.load(open(r'heart_disease_model.sav', 'rb')),
+        'parkinsons': pickle.load(open(r'parkinsons_model.sav', 'rb')),
+        'lung_cancer': pickle.load(open(r'lungs_disease_model.sav', 'rb')),
+        'thyroid': pickle.load(open(r'Thyroid_model.sav', 'rb'))
     }
 
     # Function for input fields
