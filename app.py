@@ -134,11 +134,11 @@ models = {
     'thyroid': pickle.load(open(local_paths['thyroid'], 'rb'))
 }
     # Function for input fields
-    def display_input(label, tooltip, key, type="text"):
-        if type == "text":
-            return st.text_input(label, key=key, help=tooltip)
-        elif type == "number":
-            return st.number_input(label, key=key, help=tooltip, step=1)
+def display_input(label, tooltip, key, type="text"):
+    if type == "text":
+        return st.text_input(label, key=key, help=tooltip)
+    elif type == "number":
+        return st.number_input(label, key=key, help=tooltip, step=1)
 
     # Diabetes Prediction Page
     if st.session_state["selected_disease"] == 'Diabetes Prediction':
